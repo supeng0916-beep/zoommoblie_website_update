@@ -478,8 +478,7 @@
 .hero-title-hologram {
   position: relative;
   display: inline-block;
-  --title-x: 50%;
-  --title-y: 50%;
+  isolation: isolate;
 }
 
 .hero-title-base {
@@ -496,38 +495,120 @@
   display: inline-block;
   color: transparent;
   background-image:
-    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.96) 18%, #d8b4fe 36%, #a855f7 52%, #f0abfc 68%, transparent 100%),
-    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.58) 0 1px, transparent 1px 7px);
-  background-size: 220% 100%, 100% 12px;
-  background-position: calc(var(--title-x) * 1.15) var(--title-y), center;
+    linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.92) 30%, #e9d5ff 44%, #a855f7 56%, #f5d0fe 70%, rgba(255, 255, 255, 0) 100%);
+  background-size: 42% 100%;
+  background-repeat: no-repeat;
+  background-position: 130% 50%;
   -webkit-background-clip: text;
   background-clip: text;
-  opacity: 0.18;
+  opacity: 0.95;
   mix-blend-mode: screen;
-  transition: opacity 180ms ease, background-position 120ms linear, filter 180ms ease;
-  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.28));
+  filter: drop-shadow(0 0 24px rgba(168, 85, 247, 0.38));
+  animation: title-spotlight 6.8s cubic-bezier(0.67, 0, 0.23, 1) infinite;
 }
 
+.hero-title-hologram::before,
 .hero-title-hologram::after {
   content: "";
   pointer-events: none;
   position: absolute;
-  inset: -8% -4%;
+  z-index: 0;
+}
+
+.hero-title-hologram::before {
+  inset: -38% -18%;
+  background:
+    radial-gradient(ellipse 28% 70% at 115% 52%, rgba(255, 255, 255, 0.22), rgba(216, 180, 254, 0.18) 34%, rgba(168, 85, 247, 0.08) 52%, transparent 74%),
+    radial-gradient(ellipse 18% 48% at 122% 46%, rgba(255, 255, 255, 0.26), transparent 68%);
+  filter: blur(18px);
+  opacity: 0.85;
+  animation: title-smoke-beam 6.8s cubic-bezier(0.67, 0, 0.23, 1) infinite;
+}
+
+.hero-title-hologram::after {
+  inset: -28% -14%;
   z-index: 3;
   background:
-    linear-gradient(90deg, transparent, rgba(216, 180, 254, 0.32), transparent),
-    linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.16), transparent);
-  opacity: 0;
-  transform: translateX(calc((var(--title-x) - 50%) * 0.18));
-  transition: opacity 160ms ease, transform 120ms linear;
+    radial-gradient(circle at 18% 30%, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px),
+    radial-gradient(circle at 62% 58%, rgba(216, 180, 254, 0.2) 0 1px, transparent 1px),
+    radial-gradient(circle at 84% 22%, rgba(168, 85, 247, 0.18) 0 1px, transparent 1px),
+    linear-gradient(90deg, transparent 0%, rgba(216, 180, 254, 0.22) 44%, rgba(255, 255, 255, 0.2) 54%, transparent 70%);
+  background-size: 21px 21px, 33px 33px, 27px 27px, 48% 100%;
+  background-repeat: repeat, repeat, repeat, no-repeat;
+  background-position: 0 0, 6px 9px, 14px 3px, 130% 50%;
+  filter: blur(0.8px);
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  animation: title-smoke-particles 6.8s cubic-bezier(0.67, 0, 0.23, 1) infinite;
 }
 
-.hero-title-hologram:hover .hero-title-highlight {
-  opacity: 0.92;
+@keyframes title-spotlight {
+  0%,
+  14% {
+    background-position: 132% 50%;
+    opacity: 0;
+  }
+
+  24% {
+    opacity: 0.98;
+  }
+
+  70% {
+    background-position: -34% 50%;
+    opacity: 0.98;
+  }
+
+  84%,
+  100% {
+    background-position: -34% 50%;
+    opacity: 0;
+  }
 }
 
-.hero-title-hologram:hover::after {
-  opacity: 1;
+@keyframes title-smoke-beam {
+  0%,
+  14% {
+    transform: translateX(0) scaleX(1);
+    opacity: 0;
+  }
+
+  24% {
+    opacity: 0.86;
+  }
+
+  70% {
+    transform: translateX(-128%) scaleX(1.08);
+    opacity: 0.72;
+  }
+
+  84%,
+  100% {
+    transform: translateX(-128%) scaleX(1.08);
+    opacity: 0;
+  }
+}
+
+@keyframes title-smoke-particles {
+  0%,
+  14% {
+    background-position: 0 0, 6px 9px, 14px 3px, 132% 50%;
+    opacity: 0;
+  }
+
+  24% {
+    opacity: 0.3;
+  }
+
+  70% {
+    background-position: 18px 4px, 20px 14px, 28px 9px, -34% 50%;
+    opacity: 0.26;
+  }
+
+  84%,
+  100% {
+    background-position: 18px 4px, 20px 14px, 28px 9px, -34% 50%;
+    opacity: 0;
+  }
 }
 
 .hero-console-strip {
@@ -671,6 +752,22 @@
   .noise-overlay {
     opacity: 0.02;
   }
+
+  .hero-title-highlight,
+  .hero-title-hologram::before,
+  .hero-title-hologram::after {
+    animation: none;
+  }
+
+  .hero-title-highlight {
+    background-position: 50% 50%;
+    opacity: 0.32;
+  }
+
+  .hero-title-hologram::before,
+  .hero-title-hologram::after {
+    opacity: 0.18;
+  }
 }
 
 @media (min-width: 640px) {
@@ -700,6 +797,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-image {
+    animation: none;
+  }
+
+  .hero-title-highlight,
+  .hero-title-hologram::before,
+  .hero-title-hologram::after {
     animation: none;
   }
 }

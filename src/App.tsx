@@ -212,19 +212,6 @@ export default function App() {
     pointerY.set(0);
   };
 
-  const handleHeroTitleMouseMove = (event: MouseEvent<HTMLHeadingElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-    const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-    event.currentTarget.style.setProperty('--title-x', `${x}%`);
-    event.currentTarget.style.setProperty('--title-y', `${y}%`);
-  };
-
-  const handleHeroTitleMouseLeave = (event: MouseEvent<HTMLHeadingElement>) => {
-    event.currentTarget.style.setProperty('--title-x', '50%');
-    event.currentTarget.style.setProperty('--title-y', '50%');
-  };
-
   return (
     <div
       id="top"
@@ -334,8 +321,6 @@ export default function App() {
 
         <div className="hero-copy relative z-10 mx-auto mt-20 flex max-w-4xl flex-col items-center px-5 py-8 md:mt-28 md:px-10">
           <motion.h1
-            onMouseMove={handleHeroTitleMouseMove}
-            onMouseLeave={handleHeroTitleMouseLeave}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
