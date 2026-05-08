@@ -39,6 +39,29 @@
   @apply bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10;
 }
 
+.display-compressed {
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.mono-label {
+  color: rgba(216, 180, 254, 0.78);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.shadow-border {
+  box-shadow:
+    rgba(255, 255, 255, 0.09) 0 0 0 1px,
+    rgba(124, 58, 237, 0.12) 0 2px 2px,
+    rgba(124, 58, 237, 0.16) 0 18px 60px -42px,
+    rgba(255, 255, 255, 0.04) inset 0 0 0 1px;
+}
+
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50;
 }
@@ -80,11 +103,192 @@
 }
 
 .section-title-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 34%, #7c3aed 68%, #05030a 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #ddd6fe 24%, #a855f7 58%, #12051f 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: 0 0 42px rgba(124, 58, 237, 0.14);
+}
+
+.section-orbit {
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  width: 520px;
+  height: 520px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, rgba(168, 85, 247, 0.22), transparent 58%),
+    conic-gradient(from 140deg, transparent, rgba(168, 85, 247, 0.14), transparent 42%);
+  filter: blur(34px);
+  opacity: 0.72;
+}
+
+.section-orbit-left {
+  left: -180px;
+  top: 12%;
+}
+
+.section-orbit-right {
+  right: -210px;
+  top: 8%;
+}
+
+.partner-wall {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    rgba(255, 255, 255, 0.09) 0 0 0 1px,
+    rgba(124, 58, 237, 0.16) 0 24px 90px -56px;
+}
+
+.partner-logo-tile {
+  position: relative;
+  display: flex;
+  min-height: 132px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.14), transparent 48%),
+    rgba(5, 3, 10, 0.84);
+  padding: 28px;
+  transition: background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.partner-logo-tile::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 42%);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.partner-logo-tile img {
+  position: relative;
+  z-index: 1;
+  max-width: min(150px, 78%);
+  max-height: 58px;
+  object-fit: contain;
+  filter: grayscale(1) saturate(0.2) brightness(1.28) contrast(0.92);
+  opacity: 0.62;
+  transition: filter 220ms ease, opacity 220ms ease, transform 220ms ease;
+}
+
+.partner-logo-tile:hover {
+  z-index: 2;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.28), transparent 55%),
+    rgba(9, 5, 18, 0.96);
+  box-shadow:
+    rgba(168, 85, 247, 0.5) 0 0 0 1px,
+    rgba(168, 85, 247, 0.26) 0 18px 60px -32px;
+  transform: translateY(-3px);
+}
+
+.partner-logo-tile:hover::before {
+  opacity: 1;
+}
+
+.partner-logo-tile:hover img {
+  filter: grayscale(0) saturate(1) brightness(1.05) contrast(1);
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+.company-editorial {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.company-statement,
+.service-panel {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(168, 85, 247, 0.14), transparent 38%),
+    rgba(6, 4, 12, 0.86);
+}
+
+.company-statement {
+  padding: clamp(2rem, 5vw, 4.5rem);
+}
+
+.service-panel-grid {
+  display: grid;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.service-panel {
+  min-height: 220px;
+  padding: 28px;
+}
+
+.service-index {
+  color: rgba(196, 181, 253, 0.5);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.78rem;
+}
+
+.service-panel h4 {
+  margin-top: 38px;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.service-panel p {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.56);
+  line-height: 1.72;
+}
+
+.about-rail {
+  position: relative;
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    rgba(255, 255, 255, 0.09) 0 0 0 1px,
+    rgba(124, 58, 237, 0.16) 0 24px 90px -56px;
+}
+
+.about-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 28px;
+  background:
+    linear-gradient(90deg, rgba(168, 85, 247, 0.08), transparent 34%),
+    rgba(6, 4, 12, 0.88);
+  padding: clamp(1.75rem, 4vw, 3.75rem);
+}
+
+.about-step-marker {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.78rem;
+  box-shadow:
+    rgba(255, 255, 255, 0.11) 0 0 0 1px,
+    rgba(168, 85, 247, 0.28) 0 0 34px -10px inset;
 }
 
 .hero-visual {
@@ -206,6 +410,35 @@
 }
 
 @media (pointer: coarse), (max-width: 768px) {
+  .display-compressed {
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  .partner-wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .partner-logo-tile {
+    min-height: 108px;
+    padding: 22px;
+  }
+
+  .company-editorial,
+  .about-rail {
+    border-radius: 22px;
+  }
+
+  .about-step {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .about-step-marker {
+    width: 44px;
+    height: 44px;
+  }
+
   .hero-visual {
     transform: none !important;
   }
@@ -222,6 +455,26 @@
 
   .noise-overlay {
     opacity: 0.02;
+  }
+}
+
+@media (min-width: 640px) {
+  .partner-wall {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .service-panel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .partner-wall {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .company-editorial {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 }
 

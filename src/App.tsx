@@ -43,6 +43,52 @@ const companyServices = [
   },
 ];
 
+const partnerLogos = [
+  { name: 'Alibaba', file: 'alibaba.png' },
+  { name: 'Anti', file: 'anti.jpg' },
+  { name: 'Axiata', file: 'axiata.png' },
+  { name: 'Celcom', file: 'celcom.png' },
+  { name: 'CityLife', file: 'citylifelogo.png' },
+  { name: 'Digi', file: 'dg.png' },
+  { name: 'eGHL', file: 'eghl.png' },
+  { name: 'Etiqa', file: 'etiqa.png' },
+  { name: 'GW', file: 'gwlogo.jpg' },
+  { name: 'Lonpac', file: 'lonpac.png' },
+  { name: 'Maxis', file: 'maxis-logo.png' },
+  { name: 'Motor2U', file: 'motor2u.png' },
+  { name: 'MPI', file: 'mpi.jpg' },
+  { name: 'Noah Ark', file: 'noahark.png' },
+  { name: 'Revenue Monster', file: 'revenue_monster.png' },
+  { name: 'SenangPay', file: 'senangpay.png' },
+  { name: 'Shinjiru', file: 'shinjiru.png' },
+  { name: 'Tune', file: 'tune.png' },
+  { name: 'XOX', file: 'xox.png' },
+];
+
+const aboutMilestones = [
+  {
+    id: 'mission',
+    eyebrow: '01 / Direction',
+    title: 'Our Mission',
+    body:
+      'Zoom Mobile aims to have leadership in the web and mobile application market. This leadership will enable us to sustain profitable company growth and provide our people with a variety of professional challenges. When working together with Zoom Mobile, you will benefit from our reliable infrastructure, our in-depth expertise and our strong service orientation.',
+  },
+  {
+    id: 'strength',
+    eyebrow: '02 / Capability',
+    title: 'Our Strength',
+    body:
+      "Zoom Mobile excels in undertaking projects of any size or complexity, supported by our exceptional capabilities and professional team. We provide excellent services and customized solutions to meet clients' needs and expectations, ensuring smooth progress and successful delivery. We take our clients' success as our mission, always upholding the values of integrity, quality, and innovation, and infusing each project with our utmost passion and professional spirit. By choosing us, you will be selecting a reliable partner to ensure the success of your project.",
+  },
+  {
+    id: 'team',
+    eyebrow: '03 / People',
+    title: 'Our Team',
+    body:
+      "Zoom Mobile's team of programmers spans from more than 20 years of experience to energetic new talent. They value professionalism, invest in development, and recognize the importance of people to business success. With 20+ years of expertise, they deliver reliable internet and mobile solutions, leading the industry with a commitment to diversity and employee growth. Zoom Mobile is a formidable force in the tech space.",
+  },
+];
+
 const portfolioItems = [
   {
     title: 'eCommerce Mobile App - Flutter, MSSQL',
@@ -293,7 +339,7 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="hero-title hero-title-sweep font-display text-5xl font-bold leading-[1.1] tracking-tight text-white md:text-7xl"
+            className="hero-title hero-title-sweep display-compressed font-display text-6xl font-semibold text-white md:text-8xl lg:text-9xl"
             data-text="Digital Transformation Helper"
           >
             <span className="hero-title-base">
@@ -320,17 +366,34 @@ export default function App() {
         </div>
       </section>
 
-      <section id="partners" className="scroll-mt-28 px-6 py-24">
+      <section id="partners" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
+        <div className="section-orbit section-orbit-left" />
         <div className="mx-auto max-w-7xl">
-          <h2 className="section-title-gradient mb-10 text-center font-display text-4xl font-bold md:text-5xl">
-            Partners & Clients
-          </h2>
-          <div className="glass-card overflow-hidden rounded-[28px] border-white/15 bg-[#08050f]/80 p-4 shadow-[0_0_80px_rgba(88,28,135,0.18)] md:p-8">
-            <img
-              src="/assets/clientpartner.gif"
-              alt="Zoom Mobile partners and clients"
-              className="w-full rounded-2xl bg-white"
-            />
+          <div className="mb-12 grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+            <div>
+              <p className="mono-label mb-4">Trusted network / 19 signals</p>
+              <h2 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl">
+                Partners & Clients
+              </h2>
+            </div>
+            <p className="max-w-2xl text-lg leading-8 text-white/56 md:justify-self-end">
+              A technical delivery network spanning payments, telco, insurance, commerce, hosting, and platform partners.
+            </p>
+          </div>
+
+          <div className="partner-wall">
+            {partnerLogos.map((logo, index) => (
+              <motion.div
+                key={logo.file}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: Math.min(index * 0.025, 0.28) }}
+                className="partner-logo-tile"
+              >
+                <img src={`/assets/partners/${logo.file}`} alt={logo.name} />
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -376,82 +439,75 @@ export default function App() {
         </div>
       </section>
 
-      <section id="about" className="scroll-mt-28 px-6 py-24">
-        <div className="mx-auto max-w-5xl space-y-12">
-          <h2 className="section-title-gradient text-center font-display text-4xl font-bold md:text-5xl">About</h2>
+      <section id="about" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
+        <div className="section-orbit section-orbit-right" />
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+            <div>
+              <p className="mono-label mb-4">About / Build discipline</p>
+              <h2 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl">About</h2>
+            </div>
+            <p className="text-balance text-2xl leading-10 text-white/66 md:text-3xl">
+              Software development with the restraint of infrastructure and the momentum of product delivery.
+            </p>
+          </div>
 
           <motion.section
             id="company"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-card scroll-mt-32 rounded-[28px] p-8 md:p-10"
+            className="company-editorial shadow-border scroll-mt-32"
           >
-            <h3 className="mb-6 text-center font-display text-3xl font-bold">The Company</h3>
-            <p className="text-justify leading-relaxed text-white/65">
-              At Zoom Mobile, we're passionate about software development, and we've been providing expert services
-              tailored to meet the unique needs of businesses like yours since 2008.
-            </p>
-            <div className="mt-8 space-y-5">
-              {companyServices.map((service) => (
-                <div key={service.title} className="border-l border-purple-400/35 pl-5">
-                  <h4 className="font-display text-xl font-bold">{service.title}</h4>
-                  <p className="mt-2 text-justify leading-relaxed text-white/60">{service.body}</p>
-                </div>
+            <div className="company-statement">
+              <p className="mono-label mb-5">The Company</p>
+              <h3 className="display-compressed text-4xl font-semibold text-white md:text-6xl">
+                Expert software services since 2008.
+              </h3>
+              <p className="mt-8 max-w-2xl text-lg leading-9 text-white/62">
+                At Zoom Mobile, we're passionate about software development, and we've been providing expert services
+                tailored to meet the unique needs of businesses like yours since 2008.
+              </p>
+            </div>
+
+            <div className="service-panel-grid">
+              {companyServices.map((service, index) => (
+                <motion.article
+                  key={service.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.06 }}
+                  className="service-panel"
+                >
+                  <span className="service-index">{String(index + 1).padStart(2, '0')}</span>
+                  <h4>{service.title}</h4>
+                  <p>{service.body}</p>
+                </motion.article>
               ))}
             </div>
           </motion.section>
 
-          <motion.section
-            id="mission"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-card scroll-mt-32 rounded-[28px] p-8 md:p-10"
-          >
-            <h3 className="mb-6 text-center font-display text-3xl font-bold">Our Mission</h3>
-            <p className="text-justify leading-relaxed text-white/65">
-              Zoom Mobile aims to have leadership in the web and mobile application market. This leadership will
-              enable us to sustain profitable company growth and provide our people with a variety of professional
-              challenges. When working together with Zoom Mobile, you will benefit from our reliable infrastructure,
-              our in-depth expertise and our strong service orientation.
-            </p>
-          </motion.section>
-
-          <motion.section
-            id="strength"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-card scroll-mt-32 rounded-[28px] p-8 md:p-10"
-          >
-            <h3 className="mb-6 text-center font-display text-3xl font-bold">Our Strength</h3>
-            <p className="text-justify leading-relaxed text-white/65">
-              Zoom Mobile excels in undertaking projects of any size or complexity, supported by our exceptional
-              capabilities and professional team. We provide excellent services and customized solutions to meet
-              clients' needs and expectations, ensuring smooth progress and successful delivery. We take our clients'
-              success as our mission, always upholding the values of integrity, quality, and innovation, and infusing
-              each project with our utmost passion and professional spirit. By choosing us, you will be selecting a
-              reliable partner to ensure the success of your project.
-            </p>
-          </motion.section>
-
-          <motion.section
-            id="team"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-card scroll-mt-32 rounded-[28px] p-8 md:p-10"
-          >
-            <h3 className="mb-6 text-center font-display text-3xl font-bold">Our Team</h3>
-            <p className="text-justify leading-relaxed text-white/65">
-              Zoom Mobile's team of programmers spans from more than 20 years of experience to energetic new talent.
-              They value professionalism, invest in development, and recognize the importance of people to business
-              success. With 20+ years of expertise, they deliver reliable internet and mobile solutions, leading the
-              industry with a commitment to diversity and employee growth. Zoom Mobile is a formidable force in the
-              tech space.
-            </p>
-          </motion.section>
+          <div className="about-rail mt-16">
+            {aboutMilestones.map((item, index) => (
+              <motion.section
+                id={item.id}
+                key={item.id}
+                initial={{ opacity: 0, x: -18 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.07 }}
+                className="about-step scroll-mt-32"
+              >
+                <div className="about-step-marker">{String(index + 1).padStart(2, '0')}</div>
+                <div>
+                  <p className="mono-label mb-3">{item.eyebrow}</p>
+                  <h3 className="display-compressed text-3xl font-semibold text-white md:text-5xl">{item.title}</h3>
+                  <p className="mt-6 max-w-4xl text-lg leading-9 text-white/62">{item.body}</p>
+                </div>
+              </motion.section>
+            ))}
+          </div>
         </div>
       </section>
 
