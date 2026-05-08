@@ -11,7 +11,7 @@ import {
   useTransform,
 } from 'motion/react';
 import { ChevronDown, ChevronRight, Mail, MapPin, Menu, X } from 'lucide-react';
-import { MouseEvent, useRef, useState } from 'react';
+import { CSSProperties, MouseEvent, useRef, useState } from 'react';
 
 const aboutLinks = [
   { label: 'The Company', href: '#company' },
@@ -339,7 +339,7 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="hero-title hero-title-sweep display-compressed font-display text-6xl font-semibold text-white md:text-8xl lg:text-9xl"
+            className="hero-title hero-title-hologram display-compressed font-display text-6xl font-semibold text-white md:text-8xl lg:text-9xl"
             data-text="Digital Transformation Helper"
           >
             <span className="hero-title-base">
@@ -351,6 +351,11 @@ export default function App() {
               Transformation Helper
             </span>
           </motion.h1>
+          <div className="hero-console-strip mt-5">
+            <span>build:production</span>
+            <span>latency:minimized</span>
+            <span>systems:online</span>
+          </div>
 
           <motion.a
             href="#portfolio"
@@ -398,44 +403,54 @@ export default function App() {
         </div>
       </section>
 
-      <section id="portfolio" className="scroll-mt-28 px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="section-title-gradient mb-12 text-center font-display text-4xl font-bold md:text-5xl">Portfolio</h2>
+      <section id="portfolio" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
+        <div className="section-orbit section-orbit-right" />
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.42fr_1fr]">
+          <div className="portfolio-sticky">
+            <p className="mono-label mb-4">Portfolio / Case archive</p>
+            <h2 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl">Portfolio</h2>
+            <p className="mt-7 max-w-sm text-lg leading-8 text-white/58">
+              Production work across commerce, mobile, government systems, payments, games, and enterprise platforms.
+            </p>
+            <div className="portfolio-metrics shadow-border mt-9">
+              <div>
+                <span>{portfolioItems.length}</span>
+                <p>documented cases</p>
+              </div>
+              <div>
+                <span>36</span>
+                <p>demo screens</p>
+              </div>
+            </div>
+          </div>
 
-          <div className="space-y-12">
-            {portfolioItems.map((item) => (
+          <div className="portfolio-case-list">
+            {portfolioItems.map((item, index) => (
               <motion.article
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="glass-card rounded-[28px] p-6 md:p-8"
+                transition={{ delay: Math.min(index * 0.025, 0.24) }}
+                className="portfolio-case shadow-border"
               >
-                <div className="mb-6 text-center">
-                  <h3 className="font-display text-2xl font-bold md:text-3xl">{item.title}</h3>
-                  {item.note && <p className="mt-2 text-sm text-white/55">{item.note}</p>}
+                <div className="portfolio-case-header">
+                  <span className="portfolio-index">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    {item.note && <p>{item.note}</p>}
+                  </div>
                 </div>
-                <div
-                  className={`grid gap-5 ${
-                    item.mobile
-                      ? 'grid-cols-2 md:grid-cols-4'
-                      : 'grid-cols-1 md:grid-cols-2'
-                  }`}
-                >
-                  {item.images.map((image) => (
-                    <img
-                      key={image}
-                      src={`/assets/portfolio/${image}`}
-                      alt={item.title}
-                      className="w-full rounded-2xl border border-white/10 bg-black/30 object-cover shadow-2xl"
-                    />
+                <div className={`portfolio-image-stack ${item.mobile ? 'portfolio-mobile-stack' : ''}`}>
+                  {item.images.map((image, imageIndex) => (
+                    <div key={image} className="portfolio-image-frame" style={{ '--image-index': imageIndex } as CSSProperties}>
+                      <img src={`/assets/portfolio/${image}`} alt={item.title} />
+                    </div>
                   ))}
                 </div>
               </motion.article>
             ))}
           </div>
-
-          <h3 className="mt-12 text-center font-display text-3xl font-bold">And More!</h3>
         </div>
       </section>
 
