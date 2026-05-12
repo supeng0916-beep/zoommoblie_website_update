@@ -11,7 +11,10 @@ import {
   useTransform,
 } from 'motion/react';
 import { ChevronDown, ChevronRight, Mail, MapPin, Menu, X } from 'lucide-react';
-import { CSSProperties, MouseEvent, useRef, useState } from 'react';
+import { CSSProperties, lazy, MouseEvent, Suspense, useRef, useState } from 'react';
+
+const Spline = lazy(() => import('@splinetool/react-spline'));
+const splineSceneUrl = 'https://prod.spline.design/ATD6v3-N3vI35Z17/scene.splinecode';
 
 const aboutLinks = [
   { label: 'The Company', href: '#company' },
@@ -186,6 +189,7 @@ const contactButtonClass =
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSplineLoaded, setIsSplineLoaded] = useState(false);
   const containerRef = useRef(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -307,12 +311,15 @@ export default function App() {
           }}
           className="hero-visual hero-full-bleed absolute inset-0"
         >
-          <div className="hero-image-frame relative h-full overflow-hidden">
-            <img
-              src="/assets/background.png"
-              alt="Digital transformation technology"
-              className="hero-image h-full w-full object-cover"
-            />
+          <div className="hero-image-frame spline-hero-frame relative h-full overflow-hidden">
+            <div className={`spline-loading-glow ${isSplineLoaded ? 'spline-loading-hidden' : ''}`} />
+            <Suspense fallback={null}>
+              <Spline
+                scene={splineSceneUrl}
+                className={`spline-scene ${isSplineLoaded ? 'spline-scene-loaded' : ''}`}
+                onLoad={() => setIsSplineLoaded(true)}
+              />
+            </Suspense>
             <div className="hero-overlay" />
             <div className="hero-fade" />
             <div className="noise-overlay" />
