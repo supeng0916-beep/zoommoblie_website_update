@@ -11,10 +11,42 @@ import {
   useTransform,
 } from 'motion/react';
 import { ChevronDown, ChevronRight, Mail, MapPin, Menu, X } from 'lucide-react';
-import { CSSProperties, lazy, MouseEvent, Suspense, useRef, useState } from 'react';
+import {
+  Component,
+  CSSProperties,
+  lazy,
+  MouseEvent,
+  ReactNode,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 const Spline = lazy(() => import('@splinetool/react-spline'));
 const splineSceneUrl = 'https://prod.spline.design/ATD6v3-N3vI35Z17/scene.splinecode';
+
+class SplineBoundary extends Component<{ children: ReactNode; onError: () => void }, { hasError: boolean }> {
+  declare props: Readonly<{ children: ReactNode; onError: () => void }>;
+
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch() {
+    this.props.onError();
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+
+    return this.props.children;
+  }
+}
 
 const aboutLinks = [
   { label: 'The Company', href: '#company' },
@@ -190,6 +222,7 @@ const contactButtonClass =
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSplineLoaded, setIsSplineLoaded] = useState(false);
+  const [canRenderSpline, setCanRenderSpline] = useState(false);
   const containerRef = useRef(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -215,6 +248,19 @@ export default function App() {
     pointerX.set(0);
     pointerY.set(0);
   };
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (prefersReducedMotion || isCoarsePointer) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => setCanRenderSpline(true), 250);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
     <div
@@ -313,13 +359,17 @@ export default function App() {
         >
           <div className="hero-image-frame spline-hero-frame relative h-full overflow-hidden">
             <div className={`spline-loading-glow ${isSplineLoaded ? 'spline-loading-hidden' : ''}`} />
-            <Suspense fallback={null}>
-              <Spline
-                scene={splineSceneUrl}
-                className={`spline-scene ${isSplineLoaded ? 'spline-scene-loaded' : ''}`}
-                onLoad={() => setIsSplineLoaded(true)}
-              />
-            </Suspense>
+            {canRenderSpline && (
+              <SplineBoundary onError={() => setIsSplineLoaded(false)}>
+                <Suspense fallback={null}>
+                  <Spline
+                    scene={splineSceneUrl}
+                    className={`spline-scene ${isSplineLoaded ? 'spline-scene-loaded' : ''}`}
+                    onLoad={() => setIsSplineLoaded(true)}
+                  />
+                </Suspense>
+              </SplineBoundary>
+            )}
             <div className="hero-overlay" />
             <div className="hero-fade" />
             <div className="noise-overlay" />
