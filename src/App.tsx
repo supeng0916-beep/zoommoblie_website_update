@@ -217,6 +217,10 @@ export default function App() {
     pointerY.set(0);
   };
 
+  const handleSplineError = () => {
+    setIsSplineLoaded(false);
+  };
+
   return (
     <div
       id="top"
@@ -320,11 +324,12 @@ export default function App() {
             />
             {!isSplineLoaded && <div className="spline-loading-glow" />}
             <Suspense fallback={null}>
-              <Spline
-                scene={splineSceneUrl}
-                className={`spline-scene ${isSplineLoaded ? 'spline-scene-loaded' : ''}`}
-                onLoad={() => setIsSplineLoaded(true)}
-              />
+            <Spline
+              scene={splineSceneUrl}
+              className={`spline-scene ${isSplineLoaded ? 'spline-scene-loaded' : ''}`}
+              onLoad={() => setIsSplineLoaded(true)}
+              onError={handleSplineError}
+            />
             </Suspense>
             <div className="hero-overlay" />
             <div className="hero-fade" />
