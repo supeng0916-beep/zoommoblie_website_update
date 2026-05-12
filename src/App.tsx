@@ -11,9 +11,7 @@ import {
   useTransform,
 } from 'motion/react';
 import { ChevronDown, ChevronRight, Mail, MapPin, Menu, X } from 'lucide-react';
-import { CSSProperties, lazy, MouseEvent, Suspense, useRef, useState } from 'react';
-
-const Spline = lazy(() => import('@splinetool/react-spline'));
+import { CSSProperties, MouseEvent, useRef, useState } from 'react';
 
 const aboutLinks = [
   { label: 'The Company', href: '#company' },
@@ -186,11 +184,8 @@ const buttonClass =
 const contactButtonClass =
   'contact-button inline-flex items-center justify-center rounded-full border border-white/15 bg-white/8 px-7 py-3 font-semibold shadow-[0_0_28px_rgba(124,58,237,0.22)] backdrop-blur-xl transition-all hover:border-white hover:bg-white hover:shadow-[0_0_32px_rgba(255,255,255,0.24)] active:scale-95';
 
-const splineSceneUrl = 'https://prod.spline.design/P46ONOitw6GrHbDf/scene.splinecode';
-
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSplineLoaded, setIsSplineLoaded] = useState(false);
   const containerRef = useRef(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -312,20 +307,12 @@ export default function App() {
           }}
           className="hero-visual absolute inset-x-0 top-16 mx-auto h-[78vh] max-w-7xl px-4 md:top-20 md:h-[82vh]"
         >
-          <div className="spline-hero-frame hero-image-frame relative h-full overflow-hidden rounded-[34px]">
+          <div className="hero-image-frame relative h-full overflow-hidden rounded-[34px]">
             <img
               src="/assets/background.png"
               alt="Digital transformation technology"
-              className={`spline-fallback hero-image h-full w-full object-cover ${isSplineLoaded ? 'spline-fallback-loaded' : ''}`}
+              className="hero-image h-full w-full object-cover"
             />
-            {!isSplineLoaded && <div className="spline-loading-glow" />}
-            <Suspense fallback={null}>
-              <Spline
-                scene={splineSceneUrl}
-                className={`spline-scene ${isSplineLoaded ? 'spline-scene-loaded' : ''}`}
-                onLoad={() => setIsSplineLoaded(true)}
-              />
-            </Suspense>
             <div className="hero-overlay" />
             <div className="hero-fade" />
             <div className="noise-overlay" />
