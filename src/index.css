@@ -449,6 +449,31 @@
   will-change: transform, opacity;
 }
 
+.hero-video {
+  filter: saturate(1.55) contrast(1.18) brightness(1.16);
+  transform: translate3d(0, 0, 0) scale(1.025);
+  transform-origin: center;
+  will-change: transform, filter;
+}
+
+.hero-video-tint {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(168, 85, 247, 0.12), rgba(3, 3, 3, 0.2) 58%, rgba(3, 3, 3, 0.68) 100%),
+    linear-gradient(90deg, rgba(3, 3, 3, 0.54), rgba(3, 3, 3, 0.2) 28%, rgba(3, 3, 3, 0.18) 62%, rgba(3, 3, 3, 0.56));
+}
+
+.hero-video-depth {
+  background:
+    radial-gradient(ellipse at center, transparent 20%, rgba(124, 58, 237, 0.12) 48%, transparent 72%),
+    radial-gradient(circle at 50% 50%, transparent 0%, transparent 54%, rgba(0, 0, 0, 0.56) 100%);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}
+
+.hero-video-fade {
+  background: linear-gradient(180deg, rgba(3, 3, 3, 0.42) 0%, rgba(3, 3, 3, 0.08) 30%, rgba(3, 3, 3, 0.18) 68%, #030303 100%);
+}
+
 .hero-image-frame {
   background: #000000;
   box-shadow: 0 0 110px rgba(88, 28, 135, 0.34);

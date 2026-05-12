@@ -367,7 +367,7 @@ export default function App() {
           className="absolute inset-0 z-0"
         >
           <video
-            className="h-full w-full object-cover"
+            className="hero-video h-full w-full object-cover"
             src="/assets/background_gif.mp4"
             autoPlay
             loop
@@ -380,9 +380,9 @@ export default function App() {
         </motion.div>
 
         {/* Gradient overlays for depth */}
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-black/60" />
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_18%,rgba(3,3,3,0.44)_68%,rgba(3,3,3,0.9)_100%)]" />
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#030303]/80 via-transparent to-[#030303]" />
+        <div className="hero-video-tint pointer-events-none absolute inset-0 z-[1]" />
+        <div className="hero-video-depth pointer-events-none absolute inset-0 z-[1]" />
+        <div className="hero-video-fade pointer-events-none absolute inset-0 z-[1]" />
 
         <div className="hero-copy relative z-10 mx-auto mt-20 flex max-w-4xl flex-col items-center px-5 py-8 md:mt-28 md:px-10">
           <HeroTitle />
