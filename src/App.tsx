@@ -297,7 +297,7 @@ export default function App() {
         ref={heroRef}
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
-        className="relative flex min-h-screen items-end justify-start overflow-hidden px-6 pb-10 pt-32 text-left md:px-10 md:pb-12 lg:px-16"
+        className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pb-20 pt-32 text-center"
       >
         <motion.div
           style={{
@@ -305,9 +305,9 @@ export default function App() {
             y: imageY,
             opacity: heroOpacity,
           }}
-          className="hero-visual hero-full-bleed absolute inset-0"
+          className="hero-visual absolute inset-x-0 top-16 mx-auto h-[78vh] max-w-7xl px-4 md:top-20 md:h-[82vh]"
         >
-          <div className="hero-image-frame relative h-full overflow-hidden">
+          <div className="hero-image-frame relative h-full overflow-hidden rounded-[34px]">
             <img
               src="/assets/background.png"
               alt="Digital transformation technology"
@@ -319,16 +319,12 @@ export default function App() {
           </div>
         </motion.div>
 
-        <div className="hero-copy hero-content-panel relative z-10 flex w-full max-w-[90%] flex-col items-start px-0 pb-2 sm:max-w-md lg:max-w-3xl">
-          <p className="mono-label animate-fade-up mb-4 opacity-0" style={{ animationDelay: '0.12s' }}>
-            Digital Systems / Since 2008
-          </p>
+        <div className="hero-copy relative z-10 mx-auto mt-20 flex max-w-4xl flex-col items-center px-5 py-8 md:mt-28 md:px-10">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="hero-title hero-title-hologram display-compressed font-display text-[clamp(4rem,10vw,9.5rem)] font-semibold text-white"
-            style={{ animationDelay: '0.2s' }}
+            className="hero-title hero-title-hologram display-compressed font-display text-6xl font-semibold text-white md:text-8xl lg:text-9xl"
             data-text="Digital Transformation Helper"
           >
             <span className="hero-title-base">
@@ -340,24 +336,23 @@ export default function App() {
               Transformation Helper
             </span>
           </motion.h1>
-          <p className="hero-description animate-fade-up mt-6 max-w-2xl opacity-0" style={{ animationDelay: '0.42s' }}>
-            Expert mobile, web, and enterprise systems built for teams that need reliable digital delivery without the noise.
-          </p>
-          <div className="hero-console-strip animate-fade-up mt-6 opacity-0" style={{ animationDelay: '0.56s' }}>
+          <div className="hero-console-strip mt-5">
             <span>build:production</span>
             <span>latency:minimized</span>
             <span>systems:online</span>
           </div>
 
-          <div className="animate-fade-up mt-8 flex flex-wrap gap-3 opacity-0" style={{ animationDelay: '0.72s' }}>
-            <a href="#portfolio" className={`${buttonClass} gap-2 text-base`}>
-              View Our Portfolio
-              <ChevronRight className="h-5 w-5" />
-            </a>
-            <a href="#contact" className={`${contactButtonClass} text-base`}>
-              <span className="contact-gradient-text">Contact us</span>
-            </a>
-          </div>
+          <motion.a
+            href="#portfolio"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className={`${buttonClass} mt-9 gap-2 text-lg`}
+          >
+            View Our Portfolio
+            <ChevronRight className="h-5 w-5" />
+          </motion.a>
         </div>
       </section>
 
