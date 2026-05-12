@@ -456,57 +456,9 @@
 }
 
 .hero-image-frame {
-  background:
-    radial-gradient(circle at 72% 42%, rgba(168, 85, 247, 0.2), transparent 34%),
-    radial-gradient(circle at 24% 72%, rgba(76, 29, 149, 0.2), transparent 28%),
-    #000000;
-  box-shadow: inset 0 0 160px rgba(0, 0, 0, 0.9);
+  background: #000000;
+  box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.84);
   transform: translate3d(0, 0, 0);
-}
-
-.spline-hero-frame {
-  isolation: isolate;
-}
-
-.spline-scene {
-  position: absolute;
-  inset: -6%;
-  z-index: 1;
-  width: 112%;
-  height: 112%;
-  opacity: 0;
-  transform: translate3d(0, 0, 0) scale(1.02);
-  transition: opacity 900ms ease, filter 900ms ease;
-  filter: saturate(1.18) contrast(1.08) brightness(0.9);
-  will-change: opacity, transform;
-}
-
-.spline-scene-loaded {
-  opacity: 1;
-}
-
-.spline-scene canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.spline-loading-glow {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse at 72% 42%, rgba(168, 85, 247, 0.34), transparent 38%),
-    radial-gradient(ellipse at 38% 62%, rgba(88, 28, 135, 0.28), transparent 44%),
-    linear-gradient(135deg, #020104 0%, #0b0413 48%, #000000 100%);
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-  animation: spline-loading-pulse 8s ease-in-out infinite;
-  transition: opacity 700ms ease;
-}
-
-.spline-loading-hidden {
-  opacity: 0;
 }
 
 .hero-copy::before {
@@ -716,7 +668,6 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  z-index: 2;
 }
 
 .hero-overlay {
@@ -755,19 +706,6 @@
   100% {
     opacity: 0.8;
     transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes spline-loading-pulse {
-  0%,
-  100% {
-    opacity: 0.72;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1.04);
   }
 }
 
