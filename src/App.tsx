@@ -14,6 +14,7 @@ import { ChevronDown, ChevronRight, Mail, MapPin, Menu, X } from 'lucide-react';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import HeroParticles from './components/HeroParticles';
 import HeroTitle from './components/HeroTitle';
+import HeroLoopVideo from './components/HeroLoopVideo';
 import PortfolioCase from './components/PortfolioCase';
 import TimelineSection from './components/TimelineSection';
 import AnimatedCounter from './components/AnimatedCounter';
@@ -366,16 +367,9 @@ export default function App() {
           }}
           className="absolute inset-0 z-0"
         >
-          <video
+          <HeroLoopVideo
             className="hero-video h-full w-full object-cover"
             src="/assets/background_gif.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
-            {...({ loading: 'lazy' } as { loading: 'lazy' })}
           />
         </motion.div>
 
