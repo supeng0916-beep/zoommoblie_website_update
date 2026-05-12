@@ -11,7 +11,12 @@ import {
   useTransform,
 } from 'motion/react';
 import { ChevronDown, ChevronRight, Mail, MapPin, Menu, X } from 'lucide-react';
-import { CSSProperties, MouseEvent, useRef, useState } from 'react';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
+import HeroParticles from './components/HeroParticles';
+import HeroTitle from './components/HeroTitle';
+import PortfolioCase from './components/PortfolioCase';
+import TimelineSection from './components/TimelineSection';
+import AnimatedCounter from './components/AnimatedCounter';
 
 const aboutLinks = [
   { label: 'The Company', href: '#company' },
@@ -25,21 +30,25 @@ const companyServices = [
     title: 'Online Management System',
     body:
       'Our dedicated team will provide your business with a tailored management platform that gives you an innovative advantage over your competitors.',
+    icon: '💻',
   },
   {
     title: 'Mobile Apps Development',
     body:
       'Our expert team offers technical guidance and innovative solutions for mobile app development that exceed your expectations.',
+    icon: '📱',
   },
   {
     title: 'API Integration',
     body:
       'We provide API development to enable interaction between data, applications, and devices through API. E.g. Youtube API, Messaging API, Payment API, Telco API, Insurance API, etc.',
+    icon: '🔗',
   },
   {
     title: 'Marketing Platform Integration',
     body:
       'Our team specializes in integrating marketing tools like Google Analytics, Facebook SDK or Pixel to help you easily track your marketing performance.',
+    icon: '📊',
   },
 ];
 
@@ -89,80 +98,105 @@ const aboutMilestones = [
   },
 ];
 
-const portfolioItems = [
+interface PortfolioItem {
+  title: string;
+  images: string[];
+  mobile?: boolean;
+  note?: string;
+  category: string;
+}
+
+const portfolioItems: PortfolioItem[] = [
   {
     title: 'eCommerce Mobile App - Flutter, MSSQL',
     images: ['E1.png', 'E2.png', 'E3.png', 'E4.png'],
     mobile: true,
+    category: 'mobile',
   },
   {
     title: 'Sound Frequency Analysis Report - VB .NET',
     images: ['D1.png', 'D2.png'],
+    category: 'system',
   },
   {
     title: 'Online Game P v P & Tournament Platform - Angular, Node JS, MongoDB',
     images: ['beatuph.jpg', 'beatupl.jpg'],
+    category: 'game',
   },
   {
     title: 'EV Charger - PHP Laravel, Flutter, MySQL',
     images: ['evchargerh.jpg', 'evchargerp.jpg'],
+    category: 'web',
   },
   {
     title: 'Government Project 4 (Club Management) - .NET 6 Core, C#, MSSQL',
     note: '(Sub Con)',
     images: ['ZM_P10a.jpg', 'ZM_P10b.jpg'],
+    category: 'government',
   },
   {
     title: 'Government Project 3 - .NET C#, Flutter, MSSQL',
     note: '(Sub Con)',
     images: ['ZM_P9a.jpg', 'ZM_P9b.jpg'],
+    category: 'government',
   },
   {
     title: 'Government Project 2 - PHP CI, MSSQL',
     note: '(Sub Con)',
     images: ['ZM_P8a.jpg', 'ZM_P8b.jpg'],
+    category: 'government',
   },
   {
     title: 'Government Project 1 - .NET C#, ASP, MSSQL',
     note: '(Sub Con)',
     images: ['ZM_P7a.jpg', 'ZM_P7b.jpg'],
+    category: 'government',
   },
   {
     title: 'Travel Insurance Agent System - ASP, Delphi, MSSQL',
     images: ['ZM_P1a.jpg', 'ZM_P1b.jpg'],
+    category: 'system',
   },
   {
     title: 'Staff Tags, Game Cards & Token Tracking System - C#, Angular, MSSQL, NodeJS, RabbitMQ',
     images: ['ZM_rfid01.jpg', 'ZM_rfid02.jpg'],
+    category: 'system',
   },
   {
     title: 'eCommerce + Agent System - ASP .NET, MSSQL',
     images: ['ZM_P3a.jpg', 'ZM_P3b.jpg'],
+    category: 'web',
   },
   {
     title: 'Machines Management - PHP CI, MYSQL',
     images: ['ZM_P6a.jpg', 'ZM_P6b.jpg'],
+    category: 'system',
   },
   {
     title: 'Token App - ASP .Net, Flutter, MSSQL',
     images: ['ZM_P5a.jpg', 'ZM_P5b.jpg'],
+    category: 'web',
   },
   {
     title: 'Broadcast System (million subscribers) - VB .NET, ASP .NET, ASP, MSSQL',
     images: ['ZM_P4a.jpg', 'ZM_P4b.jpg'],
+    category: 'system',
   },
   {
     title: 'Motor Insurance Agent System - PHP Laravel, MYSQL, ASP, Delphi, MSSQL',
     images: ['ZM_P2a.jpg', 'ZM_P2b.jpg'],
+    category: 'system',
   },
   {
     title: 'Game Research - Cocos2dx C++, Android Studio (Java), FB SDK',
     images: ['ZM_Game1a.jpg', 'ZM_Game1b.jpg'],
+    category: 'game',
   },
   {
     title: 'Game Research - Reversed Engineering, Smali (Android Assembly Code)',
     note: 'Reserve engineer emulator, code injection, SDK integration etc.',
     images: ['ZM_Game2a.jpg', 'ZM_Game2b.jpg'],
+    category: 'game',
   },
 ];
 
@@ -212,6 +246,27 @@ export default function App() {
     pointerY.set(0);
   };
 
+  // Initialize smooth scrolling
+  useEffect(() => {
+    const initLenis = async () => {
+      const Lenis = (await import('lenis')).default;
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    };
+
+    initLenis();
+  }, []);
+
   return (
     <div
       id="top"
@@ -220,6 +275,9 @@ export default function App() {
     >
       <div className="pointer-events-none fixed inset-0 -z-20 bg-[#030303]" />
       <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_18%,rgba(88,28,135,0.24),transparent_28%),radial-gradient(circle_at_82%_12%,rgba(24,24,27,0.74),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent_34%)]" />
+      <div className="pointer-events-none fixed inset-0 z-[1] opacity-55 mix-blend-screen">
+        <HeroParticles />
+      </div>
 
       <nav className="fixed left-0 right-0 top-0 z-50 px-4 py-4 md:px-6">
         <div className="glass mx-auto flex max-w-7xl items-center justify-between rounded-full px-4 py-1.5 shadow-2xl md:px-6">
@@ -293,6 +351,7 @@ export default function App() {
         )}
       </nav>
 
+      {/* Hero Section */}
       <section
         ref={heroRef}
         onMouseMove={handleHeroMouseMove}
@@ -305,42 +364,28 @@ export default function App() {
             y: imageY,
             opacity: heroOpacity,
           }}
-          className="hero-visual absolute inset-x-0 top-16 mx-auto h-[78vh] max-w-7xl px-4 md:top-20 md:h-[82vh]"
+          className="absolute inset-0 z-0"
         >
-          <div className="hero-image-frame relative h-full overflow-hidden rounded-[34px]">
-            <img
-              src="/assets/background.png"
-              alt="Digital transformation technology"
-              className="hero-image h-full w-full object-cover"
-            />
-            <div className="hero-overlay" />
-            <div className="hero-fade" />
-            <div className="noise-overlay" />
-          </div>
+          <video
+            className="h-full w-full object-cover"
+            src="/assets/background_gif.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            {...({ loading: 'lazy' } as { loading: 'lazy' })}
+          />
         </motion.div>
 
+        {/* Gradient overlays for depth */}
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-black/60" />
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_18%,rgba(3,3,3,0.44)_68%,rgba(3,3,3,0.9)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#030303]/80 via-transparent to-[#030303]" />
+
         <div className="hero-copy relative z-10 mx-auto mt-20 flex max-w-4xl flex-col items-center px-5 py-8 md:mt-28 md:px-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="hero-title hero-title-hologram display-compressed font-display text-6xl font-semibold text-white md:text-8xl lg:text-9xl"
-            data-text="Digital Transformation Helper"
-          >
-            <span className="hero-title-base">
-              Digital <br />
-              <span className="text-gradient">Transformation Helper</span>
-            </span>
-            <span className="hero-title-highlight" aria-hidden="true">
-              Digital <br />
-              Transformation Helper
-            </span>
-          </motion.h1>
-          <div className="hero-console-strip mt-5">
-            <span>build:production</span>
-            <span>latency:minimized</span>
-            <span>systems:online</span>
-          </div>
+          <HeroTitle />
 
           <motion.a
             href="#portfolio"
@@ -356,6 +401,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* Partners Section */}
       <section id="partners" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
         <div className="section-orbit section-orbit-left" />
         <div className="mx-auto max-w-7xl">
@@ -388,6 +434,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* Portfolio Section with 3D Effects */}
       <section id="portfolio" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
         <div className="section-orbit section-orbit-right" />
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.42fr_1fr]">
@@ -399,46 +446,33 @@ export default function App() {
             </p>
             <div className="portfolio-metrics shadow-border mt-9">
               <div>
-                <span>{portfolioItems.length}</span>
-                <p>documented cases</p>
+                <AnimatedCounter
+                  to={portfolioItems.length}
+                  duration={2}
+                  className="block font-display text-4xl font-semibold tracking-tight text-white"
+                />
+                <p className="mt-2 font-mono text-xs uppercase tracking-widest text-white/40">documented cases</p>
               </div>
               <div>
-                <span>36</span>
-                <p>demo screens</p>
+                <AnimatedCounter
+                  to={36}
+                  duration={2.5}
+                  className="block font-display text-4xl font-semibold tracking-tight text-white"
+                />
+                <p className="mt-2 font-mono text-xs uppercase tracking-widest text-white/40">demo screens</p>
               </div>
             </div>
           </div>
 
           <div className="portfolio-case-list">
             {portfolioItems.map((item, index) => (
-              <motion.article
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: Math.min(index * 0.025, 0.24) }}
-                className="portfolio-case shadow-border"
-              >
-                <div className="portfolio-case-header">
-                  <span className="portfolio-index">{String(index + 1).padStart(2, '0')}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    {item.note && <p>{item.note}</p>}
-                  </div>
-                </div>
-                <div className={`portfolio-image-stack ${item.mobile ? 'portfolio-mobile-stack' : ''}`}>
-                  {item.images.map((image, imageIndex) => (
-                    <div key={image} className="portfolio-image-frame" style={{ '--image-index': imageIndex } as CSSProperties}>
-                      <img src={`/assets/portfolio/${image}`} alt={item.title} />
-                    </div>
-                  ))}
-                </div>
-              </motion.article>
+              <PortfolioCase key={item.title} item={item} index={index} />
             ))}
           </div>
         </div>
       </section>
 
+      {/* About Section with Enhanced Interactions */}
       <section id="about" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
         <div className="section-orbit section-orbit-right" />
         <div className="mx-auto max-w-7xl">
@@ -462,7 +496,15 @@ export default function App() {
             <div className="company-statement">
               <p className="mono-label mb-5">The Company</p>
               <h3 className="display-compressed text-4xl font-semibold text-white md:text-6xl">
-                Expert software services since 2008.
+                Expert software services since{' '}
+                <span className="inline-block">
+                  <AnimatedCounter
+                    from={2000}
+                    to={2008}
+                    duration={1.5}
+                    className="text-purple-300"
+                  />
+                </span>
               </h3>
               <p className="mt-8 max-w-2xl text-lg leading-9 text-white/62">
                 At Zoom Mobile, we're passionate about software development, and we've been providing expert services
@@ -478,42 +520,39 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.06 }}
-                  className="service-panel"
+                  className="service-panel group relative overflow-hidden"
                 >
+                  {/* Hover glow effect */}
+                  <motion.div
+                    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(168, 85, 247, 0.15), transparent 50%)',
+                    }}
+                  />
+
                   <span className="service-index">{String(index + 1).padStart(2, '0')}</span>
-                  <h4>{service.title}</h4>
-                  <p>{service.body}</p>
+                  <div className="mt-6 text-3xl">{service.icon}</div>
+                  <h4 className="transition-colors duration-300 group-hover:text-purple-200">{service.title}</h4>
+                  <p className="transition-colors duration-300 group-hover:text-white/70">{service.body}</p>
                 </motion.article>
               ))}
             </div>
           </motion.section>
 
-          <div className="about-rail mt-16">
-            {aboutMilestones.map((item, index) => (
-              <motion.section
-                id={item.id}
-                key={item.id}
-                initial={{ opacity: 0, x: -18 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.07 }}
-                className="about-step scroll-mt-32"
-              >
-                <div className="about-step-marker">{String(index + 1).padStart(2, '0')}</div>
-                <div>
-                  <p className="mono-label mb-3">{item.eyebrow}</p>
-                  <h3 className="display-compressed text-3xl font-semibold text-white md:text-5xl">{item.title}</h3>
-                  <p className="mt-6 max-w-4xl text-lg leading-9 text-white/62">{item.body}</p>
-                </div>
-              </motion.section>
-            ))}
-          </div>
+          {/* Enhanced Timeline Section */}
+          <TimelineSection items={aboutMilestones} />
         </div>
       </section>
 
+      {/* Contact Section */}
       <section id="contact" className="scroll-mt-28 px-6 py-24">
         <div className="mx-auto max-w-4xl">
-          <div className="glass-card rounded-[28px] p-8 text-center md:p-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="glass-card rounded-[28px] p-8 text-center md:p-12"
+          >
             <h2 className="section-title-gradient mb-8 font-display text-4xl font-bold md:text-5xl">Contact Us</h2>
             <div className="space-y-6 text-white/65">
               <p className="text-lg text-white">Zoom Mobile Solutions Sdn Bhd. (864551-T)</p>
@@ -537,7 +576,7 @@ export default function App() {
                 inquiry@zoommobile.com.my
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
