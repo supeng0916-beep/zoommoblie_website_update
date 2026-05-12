@@ -471,10 +471,10 @@
   z-index: 1;
   opacity: 0;
   pointer-events: auto;
-  transform: scale(1.14) translate3d(0, 0, 0);
+  transform: scale(1.08) translate3d(0, 0, 0);
   transform-origin: center;
   transition: opacity 700ms ease;
-  filter: saturate(1.05) contrast(1.12) brightness(0.86);
+  filter: saturate(0.92) contrast(1.08) brightness(0.72);
 }
 
 .spline-scene-loaded {
@@ -485,14 +485,12 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0.72;
-  filter: saturate(0.55) contrast(1.08) brightness(0.5) blur(1px);
   transition: opacity 700ms ease, transform 700ms ease;
 }
 
 .spline-fallback-loaded {
-  opacity: 0.08;
-  transform: scale(1.08);
+  opacity: 0;
+  transform: scale(1.04);
 }
 
 .spline-loading-glow {
@@ -810,6 +808,19 @@
 
   .hero-visual {
     transform: none !important;
+  }
+
+  .spline-scene {
+    display: none;
+  }
+
+  .spline-fallback {
+    opacity: 1;
+    position: absolute;
+  }
+
+  .spline-loading-glow {
+    display: none;
   }
 
   .hero-image {
