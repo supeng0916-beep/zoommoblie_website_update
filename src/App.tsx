@@ -281,10 +281,10 @@ export default function App() {
       </div>
 
       <nav className="fixed left-0 right-0 top-0 z-50 px-4 py-4 md:px-6">
-        <div className="glass mx-auto flex max-w-7xl items-center justify-between rounded-full px-4 py-1.5 shadow-2xl md:px-6">
+        <div className="glass mx-auto flex max-w-[88rem] items-center justify-between rounded-full px-5 py-1.5 shadow-2xl md:px-8">
           <Logo />
 
-          <div className="hidden items-center gap-7 text-sm font-medium md:flex">
+          <div className="hidden items-center gap-8 text-[0.96rem] font-medium md:flex lg:gap-10">
             <a href="#partners" className="nav-gradient-link">
               Partners & Clients
             </a>
@@ -306,7 +306,7 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <a href="#contact" className={`${contactButtonClass} px-6 py-2`}>
+            <a href="#contact" className={`${contactButtonClass} px-7 py-2.5`}>
               <span className="contact-gradient-text">Contact us</span>
             </a>
           </div>
