@@ -206,7 +206,7 @@ const Logo = ({ className = '' }: { className?: string }) => (
     <img
       src="/assets/ZM_logo.png"
       alt="Zoom Mobile Solutions"
-      className="h-[3.4rem] w-auto object-contain md:h-[4.25rem]"
+      className="h-[2.75rem] w-auto object-contain md:h-[3.45rem]"
     />
   </a>
 );
