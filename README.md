@@ -8,7 +8,7 @@ This project is a React + Vite frontend for the renewed Zoom Mobile corporate we
 
 - Hero section with looping video background, global particle effects, and interactive title effect
 - Partners & Clients section
-- Portfolio showcase using the original company project screenshots
+- e-KYC product section with animated AI face recognition, OCR, and verification flow
 - About section with company, mission, strength, and team content
 - Contact Us section and company footer
 
@@ -64,14 +64,12 @@ public/
     clientpartner.gif
     ZM_logo.png
     partners/
-    portfolio/
 src/
   components/
     AnimatedCounter.tsx
     HeroLoopVideo.tsx
     HeroParticles.tsx
     HeroTitle.tsx
-    PortfolioCase.tsx
     TimelineSection.tsx
   App.tsx
   index.css
@@ -82,5 +80,4 @@ src/
 
 - Static website assets live in `public/assets`.
 - The hero video lives in `public/assets/background_gif.mp4`.
-- Portfolio images live in `public/assets/portfolio`.
 - Build output is generated in `dist` and is not committed.

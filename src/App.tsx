@@ -10,12 +10,26 @@ import {
   useSpring,
   useTransform,
 } from 'motion/react';
-import { ChevronDown, ChevronRight, Mail, MapPin, Menu, X } from 'lucide-react';
+import {
+  BadgeCheck,
+  ChevronDown,
+  ChevronRight,
+  FileScan,
+  Fingerprint,
+  LockKeyhole,
+  Mail,
+  MapPin,
+  Menu,
+  ScanFace,
+  ShieldCheck,
+  UserCheck,
+  ClipboardCheck,
+  X,
+} from 'lucide-react';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import HeroParticles from './components/HeroParticles';
 import HeroTitle from './components/HeroTitle';
 import HeroLoopVideo from './components/HeroLoopVideo';
-import PortfolioCase from './components/PortfolioCase';
 import TimelineSection from './components/TimelineSection';
 import AnimatedCounter from './components/AnimatedCounter';
 
@@ -99,105 +113,57 @@ const aboutMilestones = [
   },
 ];
 
-interface PortfolioItem {
-  title: string;
-  images: string[];
-  mobile?: boolean;
-  note?: string;
-  category: string;
-}
+const eKycBenefits = [
+  {
+    title: 'Fraud Risk Control',
+    body: 'Detect forged documents, spoofed selfies, and high-risk onboarding patterns before they enter your system.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Seamless User Retention',
+    body: 'Reduce manual review friction with guided capture, instant feedback, and a verification flow built for completion.',
+    icon: UserCheck,
+  },
+  {
+    title: 'Compliance Audit Trail',
+    body: 'Keep verification decisions traceable with encrypted identity evidence, timestamps, and review-ready records.',
+    icon: ClipboardCheck,
+  },
+];
 
-const portfolioItems: PortfolioItem[] = [
+const eKycWorkflowSteps = [
   {
-    title: 'eCommerce Mobile App - Flutter, MSSQL',
-    images: ['E1.png', 'E2.png', 'E3.png', 'E4.png'],
-    mobile: true,
-    category: 'mobile',
+    step: 'Step 1',
+    title: 'Smart Capture',
+    body: 'AI liveness selfie detection + anti-forgery ID photo capture',
+    icon: ScanFace,
   },
   {
-    title: 'Sound Frequency Analysis Report - VB .NET',
-    images: ['D1.png', 'D2.png'],
-    category: 'system',
+    step: 'Step 2',
+    title: 'Model Matching',
+    body: 'OCR extraction + neural face feature matching + authoritative database cross-checks',
+    icon: FileScan,
   },
   {
-    title: 'Online Game P v P & Tournament Platform - Angular, Node JS, MongoDB',
-    images: ['beatuph.jpg', 'beatupl.jpg'],
-    category: 'game',
+    step: 'Step 3',
+    title: 'Encrypted Authorization',
+    body: 'Generate an encrypted digital identity and approve access in seconds',
+    icon: LockKeyhole,
+  },
+];
+
+const eKycDocumentFields = [
+  {
+    label: 'Name',
+    value: 'Verified User',
   },
   {
-    title: 'EV Charger - PHP Laravel, Flutter, MySQL',
-    images: ['evchargerh.jpg', 'evchargerp.jpg'],
-    category: 'web',
+    label: 'ID No.',
+    value: 'A9284 6021',
   },
   {
-    title: 'Government Project 4 (Club Management) - .NET 6 Core, C#, MSSQL',
-    note: '(Sub Con)',
-    images: ['ZM_P10a.jpg', 'ZM_P10b.jpg'],
-    category: 'government',
-  },
-  {
-    title: 'Government Project 3 - .NET C#, Flutter, MSSQL',
-    note: '(Sub Con)',
-    images: ['ZM_P9a.jpg', 'ZM_P9b.jpg'],
-    category: 'government',
-  },
-  {
-    title: 'Government Project 2 - PHP CI, MSSQL',
-    note: '(Sub Con)',
-    images: ['ZM_P8a.jpg', 'ZM_P8b.jpg'],
-    category: 'government',
-  },
-  {
-    title: 'Government Project 1 - .NET C#, ASP, MSSQL',
-    note: '(Sub Con)',
-    images: ['ZM_P7a.jpg', 'ZM_P7b.jpg'],
-    category: 'government',
-  },
-  {
-    title: 'Travel Insurance Agent System - ASP, Delphi, MSSQL',
-    images: ['ZM_P1a.jpg', 'ZM_P1b.jpg'],
-    category: 'system',
-  },
-  {
-    title: 'Staff Tags, Game Cards & Token Tracking System - C#, Angular, MSSQL, NodeJS, RabbitMQ',
-    images: ['ZM_rfid01.jpg', 'ZM_rfid02.jpg'],
-    category: 'system',
-  },
-  {
-    title: 'eCommerce + Agent System - ASP .NET, MSSQL',
-    images: ['ZM_P3a.jpg', 'ZM_P3b.jpg'],
-    category: 'web',
-  },
-  {
-    title: 'Machines Management - PHP CI, MYSQL',
-    images: ['ZM_P6a.jpg', 'ZM_P6b.jpg'],
-    category: 'system',
-  },
-  {
-    title: 'Token App - ASP .Net, Flutter, MSSQL',
-    images: ['ZM_P5a.jpg', 'ZM_P5b.jpg'],
-    category: 'web',
-  },
-  {
-    title: 'Broadcast System (million subscribers) - VB .NET, ASP .NET, ASP, MSSQL',
-    images: ['ZM_P4a.jpg', 'ZM_P4b.jpg'],
-    category: 'system',
-  },
-  {
-    title: 'Motor Insurance Agent System - PHP Laravel, MYSQL, ASP, Delphi, MSSQL',
-    images: ['ZM_P2a.jpg', 'ZM_P2b.jpg'],
-    category: 'system',
-  },
-  {
-    title: 'Game Research - Cocos2dx C++, Android Studio (Java), FB SDK',
-    images: ['ZM_Game1a.jpg', 'ZM_Game1b.jpg'],
-    category: 'game',
-  },
-  {
-    title: 'Game Research - Reversed Engineering, Smali (Android Assembly Code)',
-    note: 'Reserve engineer emulator, code injection, SDK integration etc.',
-    images: ['ZM_Game2a.jpg', 'ZM_Game2b.jpg'],
-    category: 'game',
+    label: 'Status',
+    value: 'Risk cleared',
   },
 ];
 
@@ -218,6 +184,134 @@ const buttonClass =
 
 const contactButtonClass =
   'contact-button inline-flex items-center justify-center rounded-full border border-white/15 bg-white/8 px-7 py-3 font-semibold shadow-[0_0_28px_rgba(124,58,237,0.22)] backdrop-blur-xl transition-all hover:border-white hover:bg-white hover:shadow-[0_0_32px_rgba(255,255,255,0.24)] active:scale-95';
+
+function EKycWorkflowSimulator() {
+  const [activeStep, setActiveStep] = useState(1);
+  const [settledStep, setSettledStep] = useState(1);
+  const [impactStep, setImpactStep] = useState<number | null>(null);
+  const [isCompact, setIsCompact] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 1023px)');
+    const updateLayout = () => setIsCompact(mediaQuery.matches);
+
+    updateLayout();
+    mediaQuery.addEventListener('change', updateLayout);
+
+    return () => mediaQuery.removeEventListener('change', updateLayout);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveStep((current) => (current === 3 ? 1 : current + 1));
+    }, 2500);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    setImpactStep(null);
+
+    const arrivalTimer = window.setTimeout(() => {
+      setSettledStep(activeStep);
+      setImpactStep(activeStep);
+    }, 900);
+
+    return () => window.clearTimeout(arrivalTimer);
+  }, [activeStep]);
+
+  const dotPositions = isCompact
+    ? [
+        { left: '24px', top: '11%' },
+        { left: '24px', top: '50%' },
+        { left: '24px', top: '89%' },
+      ]
+    : [
+        { left: '12.5%', top: '50%' },
+        { left: '50%', top: '50%' },
+        { left: '87.5%', top: '50%' },
+      ];
+
+  return (
+    <div className="ekyc-timeline">
+      <div className={`ekyc-laser-line ${isCompact ? 'is-vertical' : 'is-horizontal'}`} aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <linearGradient
+              id={`purple-gradient-${isCompact ? 'vertical' : 'horizontal'}`}
+              x1="0"
+              y1="0"
+              x2={isCompact ? '0' : '1'}
+              y2={isCompact ? '1' : '0'}
+            >
+              <stop offset="0%" stopColor="#581c87" stopOpacity="0.12" />
+              <stop offset="34%" stopColor="#a855f7" stopOpacity="0.98" />
+              <stop offset="62%" stopColor="#e9d5ff" stopOpacity="1" />
+              <stop offset="100%" stopColor="#7e22ce" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+          <line
+            className="ekyc-laser-base"
+            x1={isCompact ? '50' : '0'}
+            y1={isCompact ? '0' : '50'}
+            x2={isCompact ? '50' : '100'}
+            y2={isCompact ? '100' : '50'}
+          />
+          <line
+            className="ekyc-laser-pulse"
+            x1={isCompact ? '50' : '0'}
+            y1={isCompact ? '0' : '50'}
+            x2={isCompact ? '50' : '100'}
+            y2={isCompact ? '100' : '50'}
+            stroke={`url(#purple-gradient-${isCompact ? 'vertical' : 'horizontal'})`}
+            strokeDasharray="20, 150"
+            strokeDashoffset="0"
+            pathLength="100"
+          />
+        </svg>
+      </div>
+      <motion.div
+        className="ekyc-neon-dot"
+        animate={dotPositions[activeStep - 1]}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      />
+      {impactStep !== null && (
+        <motion.div
+          key={impactStep}
+          className="ekyc-impact-ripple"
+          style={dotPositions[impactStep - 1]}
+          initial={{ opacity: 0.75, scale: 0.38 }}
+          animate={{ opacity: 0, scale: 2.4 }}
+          transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
+        />
+      )}
+      {eKycWorkflowSteps.map((item, index) => {
+        const Icon = item.icon;
+        const isCurrent = settledStep === index + 1;
+
+        return (
+          <motion.article
+            key={item.title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            animate={{ scale: isCurrent ? 1.02 : 1, y: isCurrent ? -6 : 0 }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            aria-current={isCurrent ? 'step' : undefined}
+            className={`ekyc-workflow-card ${isCurrent ? 'is-active' : ''}`}
+          >
+            <div className="ekyc-workflow-icon">
+              <Icon className="h-5 w-5" />
+            </div>
+            <span>{item.step}</span>
+            <h4>{item.title}</h4>
+            <p>{item.body}</p>
+          </motion.article>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -288,8 +382,8 @@ export default function App() {
             <a href="#partners" className="nav-gradient-link">
               Partners & Clients
             </a>
-            <a href="#portfolio" className="nav-gradient-link">
-              Portfolio
+            <a href="#ekyc" className="nav-gradient-link">
+              e-KYC
             </a>
             <div className="group relative">
               <a href="#about" className="nav-gradient-link flex items-center gap-1">
@@ -331,8 +425,8 @@ export default function App() {
               <a href="#partners" onClick={closeMenu(setIsMenuOpen)}>
                 Partners & Clients
               </a>
-              <a href="#portfolio" onClick={closeMenu(setIsMenuOpen)}>
-                Portfolio
+              <a href="#ekyc" onClick={closeMenu(setIsMenuOpen)}>
+                e-KYC
               </a>
               <a href="#about" onClick={closeMenu(setIsMenuOpen)}>
                 About
@@ -382,14 +476,14 @@ export default function App() {
           <HeroTitle />
 
           <motion.a
-            href="#portfolio"
+            href="#partners"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className={`${buttonClass} mt-9 gap-2 text-lg`}
           >
-            View Our Portfolio
+            Explore
             <ChevronRight className="h-5 w-5" />
           </motion.a>
         </div>
@@ -406,7 +500,7 @@ export default function App() {
                 Partners & Clients
               </h2>
             </div>
-            <p className="max-w-2xl text-lg leading-8 text-white/56 md:justify-self-end">
+            <p className="max-w-2xl text-xl leading-9 text-white/62 md:justify-self-end md:text-2xl md:leading-10">
               A technical delivery network spanning payments, telco, insurance, commerce, hosting, and platform partners.
             </p>
           </div>
@@ -428,41 +522,130 @@ export default function App() {
         </div>
       </section>
 
-      {/* Portfolio Section with 3D Effects */}
-      <section id="portfolio" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
+      {/* e-KYC Section */}
+      <section id="ekyc" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
         <div className="section-orbit section-orbit-right" />
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.42fr_1fr]">
-          <div className="portfolio-sticky">
-            <p className="mono-label mb-4">Portfolio / Case archive</p>
-            <h2 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl">Portfolio</h2>
-            <p className="mt-7 max-w-sm text-lg leading-8 text-white/58">
-              Production work across commerce, mobile, government systems, payments, games, and enterprise platforms.
-            </p>
-            <div className="portfolio-metrics shadow-border mt-9">
-              <div>
-                <AnimatedCounter
-                  to={portfolioItems.length}
-                  duration={2}
-                  className="block font-display text-4xl font-semibold tracking-tight text-white"
-                />
-                <p className="mt-2 font-mono text-xs uppercase tracking-widest text-white/40">documented cases</p>
-              </div>
-              <div>
-                <AnimatedCounter
-                  to={36}
-                  duration={2.5}
-                  className="block font-display text-4xl font-semibold tracking-tight text-white"
-                />
-                <p className="mt-2 font-mono text-xs uppercase tracking-widest text-white/40">demo screens</p>
-              </div>
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mono-label mb-4"
+              >
+                e-KYC / Identity verification engine
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.08 }}
+                className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl"
+              >
+                e-KYC
+              </motion.h2>
             </div>
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.16 }}
+              className="max-w-2xl text-xl leading-9 text-white/62 md:justify-self-end md:text-2xl md:leading-10"
+            >
+              A secure onboarding layer that combines AI face recognition, OCR document capture, fraud screening, and instant identity approval.
+            </motion.p>
           </div>
 
-          <div className="portfolio-case-list">
-            {portfolioItems.map((item, index) => (
-              <PortfolioCase key={item.title} item={item} index={index} />
-            ))}
+          <div className="ekyc-bento mt-14">
+            {eKycBenefits.map((benefit, index) => {
+              const Icon = benefit.icon;
+              return (
+                <motion.article
+                  key={benefit.title}
+                  initial={{ opacity: 0, y: 22 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.18 + index * 0.08 }}
+                  className="ekyc-benefit"
+                >
+                  <div className="ekyc-benefit-icon">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3>{benefit.title}</h3>
+                  <p>{benefit.body}</p>
+                </motion.article>
+              );
+            })}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.28 }}
+            className="ekyc-engine mt-16"
+          >
+            <div className="ekyc-engine-copy">
+              <p className="mono-label mb-4">Workflow engine / Live data path</p>
+              <h3 className="display-compressed font-display text-4xl font-semibold text-white md:text-6xl">
+                Verification moves like data, not paperwork.
+              </h3>
+            </div>
+
+            <div className="ekyc-workbench">
+              <EKycWorkflowSimulator />
+
+              <motion.div
+                initial={{ opacity: 0, y: 28, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.7, ease: 'easeOut' }}
+                className="ekyc-stage"
+              >
+                <div className="ekyc-phone shadow-border">
+                  <div className="ekyc-phone-top">
+                    <span />
+                    <p>Identity Scan</p>
+                    <Fingerprint className="h-5 w-5" />
+                  </div>
+
+                  <div className="ekyc-scan-area">
+                    <div className="ekyc-face-ring">
+                      <ScanFace className="h-20 w-20" />
+                    </div>
+                    <div className="ekyc-scan-line" />
+                    <div className="ekyc-corner ekyc-corner-tl" />
+                    <div className="ekyc-corner ekyc-corner-tr" />
+                    <div className="ekyc-corner ekyc-corner-bl" />
+                    <div className="ekyc-corner ekyc-corner-br" />
+                  </div>
+
+                  <div className="ekyc-document-card">
+                    <div>
+                      <p className="mono-label">OCR document</p>
+                      <h3>MYKad / Passport</h3>
+                    </div>
+                    <div className="ekyc-document-chip">LIVE</div>
+                    {eKycDocumentFields.map((field) => (
+                      <div key={field.label} className="ekyc-document-field">
+                        <span>{field.label}</span>
+                        <p>{field.value}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="ekyc-success">
+                    <BadgeCheck className="h-7 w-7" />
+                    <div>
+                      <strong>Verification passed</strong>
+                      <p>Face, OCR and risk checks approved</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -475,7 +658,7 @@ export default function App() {
               <p className="mono-label mb-4">About / Build discipline</p>
               <h2 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl">About</h2>
             </div>
-            <p className="text-balance text-2xl leading-10 text-white/66 md:text-3xl">
+            <p className="max-w-2xl text-balance text-xl leading-9 text-white/62 lg:justify-self-end md:text-2xl md:leading-10">
               Software development with the restraint of infrastructure and the momentum of product delivery.
             </p>
           </div>
