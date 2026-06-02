@@ -159,7 +159,7 @@ const eKycDocumentFields = [
   },
   {
     label: 'ID No.',
-    value: 'A9284 6021',
+    value: 'XXXXXX-XX-XXXX',
   },
   {
     label: 'Status',
@@ -495,7 +495,7 @@ export default function App() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-end">
             <div>
-              <p className="mono-label mb-4">Trusted network / 19 signals</p>
+              <p className="mono-label mb-4">Trusted network</p>
               <h2 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl">
                 Partners & Clients
               </h2>
@@ -659,7 +659,7 @@ export default function App() {
               <h2 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl">About</h2>
             </div>
             <p className="max-w-2xl text-balance text-xl leading-9 text-white/62 lg:justify-self-end md:text-2xl md:leading-10">
-              Software development with the restraint of infrastructure and the momentum of product delivery.
+              Develop software under any conditions and ensure that product delivery stays on track.
             </p>
           </div>
 
