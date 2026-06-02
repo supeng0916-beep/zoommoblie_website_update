@@ -659,7 +659,7 @@ export default function App() {
               <h2 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl">About</h2>
             </div>
             <p className="max-w-2xl text-balance text-xl leading-9 text-white/62 lg:justify-self-end md:text-2xl md:leading-10">
-              Develop software under any conditions and ensure that product delivery stays on track.
+              Empowering businesses through innovative software development while ensuring seamless and timely product delivery.
             </p>
           </div>
 
