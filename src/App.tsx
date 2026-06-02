@@ -383,7 +383,7 @@ export default function App() {
               Partners & Clients
             </a>
             <a href="#ekyc" className="nav-gradient-link">
-              e-KYC
+              ZM eKYC AI
             </a>
             <div className="group relative">
               <a href="#about" className="nav-gradient-link flex items-center gap-1">
@@ -426,7 +426,7 @@ export default function App() {
                 Partners & Clients
               </a>
               <a href="#ekyc" onClick={closeMenu(setIsMenuOpen)}>
-                e-KYC
+                ZM eKYC AI
               </a>
               <a href="#about" onClick={closeMenu(setIsMenuOpen)}>
                 About
@@ -490,7 +490,7 @@ export default function App() {
       </section>
 
       {/* Partners Section */}
-      <section id="partners" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
+      <section id="partners" className="relative scroll-mt-28 overflow-hidden px-6 py-16">
         <div className="section-orbit section-orbit-left" />
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-end">
@@ -522,8 +522,8 @@ export default function App() {
         </div>
       </section>
 
-      {/* e-KYC Section */}
-      <section id="ekyc" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
+      {/* ZM eKYC AI Section */}
+      <section id="ekyc" className="relative scroll-mt-28 overflow-hidden px-6 py-16">
         <div className="section-orbit section-orbit-right" />
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-end">
@@ -534,7 +534,7 @@ export default function App() {
                 viewport={{ once: true }}
                 className="mono-label mb-4"
               >
-                e-KYC / Identity verification engine
+                ZM eKYC AI / Identity verification engine
               </motion.p>
               <motion.h2
                 initial={{ opacity: 0, y: 18 }}
@@ -543,7 +543,7 @@ export default function App() {
                 transition={{ delay: 0.08 }}
                 className="section-title-gradient display-compressed text-5xl font-semibold md:text-7xl"
               >
-                e-KYC
+                ZM eKYC AI
               </motion.h2>
             </div>
             <motion.p
@@ -650,7 +650,7 @@ export default function App() {
       </section>
 
       {/* About Section with Enhanced Interactions */}
-      <section id="about" className="relative scroll-mt-28 overflow-hidden px-6 py-28">
+      <section id="about" className="relative scroll-mt-28 overflow-hidden px-6 py-16">
         <div className="section-orbit section-orbit-right" />
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
@@ -722,7 +722,7 @@ export default function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="scroll-mt-28 px-6 py-24">
+      <section id="contact" className="scroll-mt-28 px-6 py-16">
         <div className="mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -8,7 +8,7 @@ This project is a React + Vite frontend for the renewed Zoom Mobile corporate we
 
 - Hero section with looping video background, global particle effects, and interactive title effect
 - Partners & Clients section
-- e-KYC product section with animated AI face recognition, OCR, and verification flow
+- ZM eKYC AI product section with animated AI face recognition, OCR, and verification flow
 - About section with company, mission, strength, and team content
 - Contact Us section and company footer
 
