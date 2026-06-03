@@ -57,6 +57,7 @@ const aiServiceLinks = [
   { label: 'AI Bank Validation', href: '#ai-bank-validation' },
   { label: 'Multi-Agent AI Chatbot', href: '#multi-agent-ai-chatbot' },
   { label: 'AI Reporting', href: '#ai-reporting' },
+  { label: 'AI Financing', href: '#ai-financing' },
 ];
 
 const companyServices = [
@@ -222,6 +223,19 @@ const aiServices = [
       'Automated time-series analysis and dynamic data visualization. Turn complex operational metrics into predictive insights and automated strategic reports.',
     visual: 'report',
   },
+  {
+    id: 'ai-financing',
+    title: 'AI Financing',
+    body:
+      'Transform financing workflows from weeks to seconds. Our AI engine automates applicant screening and risk evaluation through multi-dimensional financial data analysis. Eliminate manual bottlenecks, reduce operational costs, and deploy institutional-grade credit decisions with zero friction.',
+    visual: 'financing',
+  },
+];
+
+const financingChecks = [
+  'Financial Data Analysis',
+  'Document Verification',
+  'Risk Evaluation',
 ];
 
 const agentNodes = [
@@ -810,6 +824,125 @@ function ReportingVisual() {
   );
 }
 
+function FinancingVisual() {
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(panelRef, { once: true, margin: '-18% 0px' });
+  const [completedChecks, setCompletedChecks] = useState(0);
+  const [score, setScore] = useState(0);
+  const isApproved = completedChecks === financingChecks.length && score >= 850;
+
+  useEffect(() => {
+    if (!isInView) {
+      return undefined;
+    }
+
+    const timers = financingChecks.map((_, index) =>
+      window.setTimeout(() => {
+        setCompletedChecks(index + 1);
+      }, 420 + index * 500),
+    );
+
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [isInView]);
+
+  useEffect(() => {
+    if (!isInView) {
+      return undefined;
+    }
+
+    let animationFrame = 0;
+    const start = performance.now();
+    const duration = 2000;
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setScore(Math.round(eased * 850));
+
+      if (progress < 1) {
+        animationFrame = window.requestAnimationFrame(tick);
+      }
+    };
+
+    animationFrame = window.requestAnimationFrame(tick);
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [isInView]);
+
+  return (
+    <div ref={panelRef} className="ai-financing-panel shadow-border">
+      <div className="ai-financing-checks">
+        <p className="mono-label">Applicant verification</p>
+        <div className="ai-financing-check-stack">
+          {financingChecks.map((item, index) => {
+            const isComplete = completedChecks > index;
+
+            return (
+              <motion.div
+                key={item}
+                className={`ai-financing-check ${isComplete ? 'is-complete' : ''}`}
+                initial={{ opacity: 0, x: -16 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }}
+                transition={{ delay: index * 0.12, duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span>
+                  <CheckCircle className="h-4 w-4" />
+                </span>
+                <div>
+                  <strong>{item}</strong>
+                  <p>{isComplete ? 'Completed' : 'Pending verification'}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="ai-financing-score">
+        <svg viewBox="0 0 220 220" className="ai-credit-ring" aria-hidden="true">
+          <defs>
+            <linearGradient id="financing-purple-grad" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stopColor="#581c87" />
+              <stop offset="45%" stopColor="#a855f7" />
+              <stop offset="100%" stopColor="#e9d5ff" />
+            </linearGradient>
+          </defs>
+          <circle className="ai-credit-ring-track" cx="110" cy="110" r="78" pathLength="1" />
+          <motion.circle
+            className="ai-credit-ring-progress"
+            cx="110"
+            cy="110"
+            r="78"
+            pathLength="1"
+            initial={{ pathLength: 0 }}
+            animate={isInView ? { pathLength: 0.86 } : { pathLength: 0 }}
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+          />
+        </svg>
+        <div className="ai-score-center">
+          <span>AI Credit Score</span>
+          <strong>{score}</strong>
+          <p>Risk Control Index</p>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {isApproved && (
+          <motion.div
+            className="ai-financing-approved"
+            initial={{ opacity: 0, y: 18, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 18, scale: 0.96 }}
+            transition={{ duration: 0.46, ease: [0.16, 1, 0.3, 1] }}
+          >
+            RECOMMENDATION: APPROVED (Low Risk)
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function AIServiceVisual({ index }: { index: number }) {
   const visuals = [
     <EKycServiceVisual />,
@@ -817,6 +950,7 @@ function AIServiceVisual({ index }: { index: number }) {
     <BankValidationVisual />,
     <AgentChatbotVisual />,
     <ReportingVisual />,
+    <FinancingVisual />,
   ];
 
   return (
@@ -845,6 +979,7 @@ function AIServiceBlock({
   const isReverse = index % 2 === 1;
   const isAgentService = service.id === 'multi-agent-ai-chatbot';
   const isReportingService = service.id === 'ai-reporting';
+  const isFinancingService = service.id === 'ai-financing';
 
   if (index === 0) {
     return (
@@ -878,7 +1013,7 @@ function AIServiceBlock({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-16%' }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      className={`ai-service-block scroll-mt-32 ${isReverse ? 'is-reverse' : ''} ${isAgentService ? 'is-agent-service' : ''} ${isReportingService ? 'is-reporting-service' : ''}`}
+      className={`ai-service-block scroll-mt-32 ${isReverse ? 'is-reverse' : ''} ${isAgentService ? 'is-agent-service' : ''} ${isReportingService ? 'is-reporting-service' : ''} ${isFinancingService ? 'is-financing-service' : ''}`}
     >
       <div className="ai-service-copy">
         <p className="mono-label">Sevice0{index + 1}</p>
@@ -924,7 +1059,7 @@ function AIServicesSection() {
             transition={{ delay: 0.16 }}
             className="max-w-2xl text-xl leading-9 text-white/62 md:justify-self-end md:text-2xl md:leading-10"
           >
-            Intelligent automation services connecting identity verification, document parsing, risk validation, agentic support, and predictive reporting.
+            Intelligent automation services connecting identity verification, document parsing, risk validation, agentic support, predictive reporting, and financing approval.
           </motion.p>
         </div>
 

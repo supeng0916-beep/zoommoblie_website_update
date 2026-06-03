@@ -1563,7 +1563,8 @@
 .ai-code-editor,
 .ai-bank-screen,
 .ai-agent-lab,
-.ai-report-dashboard {
+.ai-report-dashboard,
+.ai-financing-panel {
   position: relative;
   width: min(100%, 760px);
   min-height: 320px;
@@ -2066,6 +2067,198 @@
   white-space: normal;
 }
 
+.ai-financing-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(260px, 1.06fr);
+  gap: 24px;
+  align-items: center;
+  padding: clamp(1.35rem, 3vw, 2rem);
+}
+
+.ai-financing-panel::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at 70% 42%, black, transparent 78%);
+  opacity: 0.52;
+}
+
+.ai-financing-checks,
+.ai-financing-score,
+.ai-financing-approved {
+  position: relative;
+  z-index: 1;
+}
+
+.ai-financing-check-stack {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.ai-financing-check {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  color: rgba(161, 161, 170, 0.86);
+  transition:
+    border-color 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ai-financing-check > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  color: rgba(161, 161, 170, 0.68);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: rgba(255, 255, 255, 0.08) 0 0 0 1px inset;
+  transition:
+    color 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ai-financing-check strong {
+  display: block;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.ai-financing-check p {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.38);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ai-financing-check.is-complete {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 0% 50%, rgba(168, 85, 247, 0.18), transparent 58%),
+    rgba(255, 255, 255, 0.07);
+  border-color: rgba(168, 85, 247, 0.48);
+  box-shadow:
+    rgba(168, 85, 247, 0.28) 0 0 0 1px,
+    rgba(168, 85, 247, 0.24) 0 18px 44px -30px;
+}
+
+.ai-financing-check.is-complete > span {
+  color: #e9d5ff;
+  box-shadow:
+    rgba(216, 180, 254, 0.42) 0 0 0 1px inset,
+    rgba(168, 85, 247, 0.48) 0 0 26px -8px;
+}
+
+.ai-financing-score {
+  display: grid;
+  min-height: 280px;
+  place-items: center;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.22), transparent 54%),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: rgba(255, 255, 255, 0.09) 0 0 0 1px inset;
+}
+
+.ai-credit-ring {
+  width: min(100%, 280px);
+  height: auto;
+  overflow: visible;
+  transform: rotate(135deg);
+}
+
+.ai-credit-ring-track,
+.ai-credit-ring-progress {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.ai-credit-ring-track {
+  stroke: rgba(63, 63, 70, 0.72);
+  stroke-width: 14;
+  stroke-dasharray: 0.86 1;
+}
+
+.ai-credit-ring-progress {
+  stroke: url(#financing-purple-grad);
+  stroke-width: 14;
+  filter:
+    drop-shadow(0 0 8px #a855f7)
+    drop-shadow(0 0 22px rgba(216, 180, 254, 0.58));
+}
+
+.ai-score-center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.ai-score-center span,
+.ai-score-center p {
+  color: rgba(216, 180, 254, 0.72);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ai-score-center strong {
+  margin: 10px 0 6px;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 8vw, 5.6rem);
+  font-weight: 700;
+  letter-spacing: -0.075em;
+  line-height: 0.88;
+  text-shadow:
+    rgba(216, 180, 254, 0.54) 0 0 22px,
+    rgba(168, 85, 247, 0.36) 0 0 56px;
+}
+
+.ai-financing-approved {
+  grid-column: 1 / -1;
+  justify-self: center;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 197, 94, 0.5);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.22), transparent 66%),
+    rgba(5, 46, 22, 0.18);
+  color: #4ade80;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: clamp(0.76rem, 1.5vw, 0.88rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 12px 18px;
+  text-align: center;
+  text-transform: uppercase;
+  animation: ai-financing-approval-pulse 1.8s ease-in-out infinite;
+  box-shadow:
+    rgba(34, 197, 94, 0.32) 0 0 0 1px inset,
+    rgba(34, 197, 94, 0.34) 0 0 36px -10px;
+}
+
 @keyframes ai-scan-x {
   0% {
     transform: translateX(0);
@@ -2168,6 +2361,22 @@
 
   50% {
     opacity: 1;
+  }
+}
+
+@keyframes ai-financing-approval-pulse {
+  0%,
+  100% {
+    box-shadow:
+      rgba(34, 197, 94, 0.32) 0 0 0 1px inset,
+      rgba(34, 197, 94, 0.34) 0 0 32px -12px;
+  }
+
+  50% {
+    box-shadow:
+      rgba(34, 197, 94, 0.54) 0 0 0 1px inset,
+      rgba(34, 197, 94, 0.56) 0 0 54px -8px,
+      rgba(168, 85, 247, 0.16) 0 0 80px -26px;
   }
 }
 
@@ -2299,9 +2508,22 @@
   .ai-code-editor,
   .ai-bank-screen,
   .ai-agent-lab,
-  .ai-report-dashboard {
+  .ai-report-dashboard,
+  .ai-financing-panel {
     min-height: 280px;
     border-radius: 24px;
+  }
+
+  .ai-financing-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-financing-score {
+    min-height: 250px;
+  }
+
+  .ai-credit-ring {
+    width: min(100%, 240px);
   }
 
   .ai-log-row {
@@ -2467,6 +2689,10 @@
 
   .ai-service-block.is-reporting-service {
     grid-template-columns: minmax(0, 0.72fr) minmax(460px, 1.08fr);
+  }
+
+  .ai-service-block.is-financing-service {
+    grid-template-columns: minmax(500px, 1.08fr) minmax(0, 0.72fr);
   }
 
   .ai-services-stack {
